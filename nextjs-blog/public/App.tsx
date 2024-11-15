@@ -1,5 +1,7 @@
 import React, { Component, MouseEvent } from "react"
 import { AddGuest } from "./AddGuest"
+import { Home } from "./Home"
+import { GuestList } from "./GuestList"
 
 export type Show = "home" | "guestlist" | "addguest" | "guestpage"
 
@@ -11,16 +13,20 @@ export class App extends Component<{}, State> {
     constructor(props: {}){
         super(props)
 
-        this.state = {showing: "addguest"}
+        this.state = {showing: "home"}
     }
 
     render = (): JSX.Element => {
         let page: JSX.Element = <div></div>
-        if(this.state.showing === "addguest"){
+        if(this.state.showing === "addguest") {
             page = <AddGuest openGL={this.openPage}/>
         }
-
-
+        else if(this.state.showing === "home") {
+            page = <Home openPage={this.openPage}/>
+        }
+        else if(this.state.showing === "guestlist") {
+            page = <GuestList openPage={this.openPage}/>
+        }
 
         return <div>
             <header>

@@ -1,5 +1,4 @@
 import React, { ChangeEvent, Component, MouseEvent } from "react";
-import { Guest } from "./Guest";
 import { Show } from "./App";
 import { save } from "./server";
 
@@ -35,7 +34,7 @@ export class AddGuest extends Component<AgProps, AgState> {
     }
 
     render = (): JSX.Element => {
-        return <div>
+        return <main>
             <h2>
                 Add Guest
             </h2>
@@ -60,8 +59,8 @@ export class AddGuest extends Component<AgProps, AgState> {
                 <input type="number" value={this.state.kids} onChange={this.updateKids}></input>
             </p>
             {this.renderKids()}
-            <button onClick={this.addGuest}>Add</button>
-        </div>
+            <button onClick={this.addGuest}>Add</button><button onClick={this.goBack}>Back</button>
+        </main>
     }
 
     renderKids = (): JSX.Element => {
@@ -93,6 +92,10 @@ export class AddGuest extends Component<AgProps, AgState> {
                 <textarea rows={4} cols={60} value={this.state.plusoneinfo?.allergies} onChange={this.updatePoAllergies}></textarea>
             </p>
         </div>
+    }
+
+    goBack = (evt: MouseEvent<HTMLButtonElement>): void => {
+        this.props.openGL("guestlist")
     }
 
     addGuest = (evt: MouseEvent<HTMLButtonElement>): void => {

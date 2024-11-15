@@ -11,7 +11,7 @@ export const load = (name: string): Guest => {
     return guestlist.get(name)
 }
 
-export const names = (): string[] => {
+export const names = (): string[] => {    
     return guestlist.names()
 }
 

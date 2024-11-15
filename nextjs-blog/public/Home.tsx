@@ -1,8 +1,8 @@
 import React, { Component, MouseEvent } from "react";
+import { Show } from "./App";
 
 type HomeProps = {
-    openGL: () => void
-    openAG: () => void
+    openPage: (page: Show) => void
 }
 
 
@@ -12,12 +12,20 @@ export class Home extends Component<HomeProps, {}> {
     }
 
     render = (): JSX.Element => {
-        return <div>
+        return <main>
             <h2>
                 HOME
             </h2>
-            <p><a onClick={this.props.openGL}>GuestList</a></p>
-            <p><a onClick={this.props.openGL}>AddGuest</a></p>
-        </div>
+            <p><a onClick={this.openGL}>GuestList</a></p>
+            <p><a onClick={this.openAG}>AddGuest</a></p>
+        </main>
+    }
+
+    openAG = (evt: MouseEvent<HTMLElement>): void => {
+        this.props.openPage("addguest")
+    }
+
+    openGL = (evt: MouseEvent<HTMLElement>): void => {
+        this.props.openPage("guestlist")
     }
 }

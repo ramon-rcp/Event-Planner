@@ -44,7 +44,7 @@ class MyMap<T> implements MutableMap<T> {
     }
 
     names = (): string[] => {
-        return Array.from(this.map.keys())
+        return (Array.from(this.map.keys()) === null) ? [] : Array.from(this.map.keys())
     }
 }
 
