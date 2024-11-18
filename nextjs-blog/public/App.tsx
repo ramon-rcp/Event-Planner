@@ -2,8 +2,10 @@ import React, { Component, MouseEvent } from "react"
 import { AddGuest } from "./AddGuest"
 import { Home } from "./Home"
 import { GuestList } from "./GuestList"
+import { Guest } from "./Guest"
+import { GuestInfo } from "./GuestInfo"
 
-export type Show = "home" | "guestlist" | "addguest" | "guestpage"
+export type Show = "home" | "guestlist" | "addguest" | {kind: "guestinfo", guest: Guest}
 
 type State = {
     showing: Show
@@ -26,6 +28,9 @@ export class App extends Component<{}, State> {
         }
         else if(this.state.showing === "guestlist") {
             page = <GuestList openPage={this.openPage}/>
+        }
+        else if(this.state.showing.kind === "guestinfo") {
+            page = <GuestInfo guest={this.state.showing.guest} openGL={this.openPage}/>
         }
 
         return <div>

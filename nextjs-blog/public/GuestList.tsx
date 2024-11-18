@@ -1,6 +1,7 @@
 import React, { Component, MouseEvent } from "react";
-import { names } from "./server";
+import { load, names } from "./server";
 import { Show } from "./App";
+import { Guest } from "./Guest";
 
 type GlState = {
     list?: string[];
@@ -38,12 +39,18 @@ export class GuestList extends Component<GlProps, GlState> {
         const html: JSX.Element[] = []
         for(const name of this.state.list){
             html.push(
-                <li>
+                <li><a onClick={this.openGi}>
                     {name}
-                </li>
+                    </a></li>
             )
         }
         return <ul>{html}</ul>
+    }
+
+    openGi = (evt: MouseEvent<HTMLAnchorElement>): void => {
+        const target = evt.target as HTMLElement
+        const g: Guest = load(target.innerHTML);
+        this.props.openPage({kind: "guestinfo", guest: g})
     }
 
     getList = (): void => {

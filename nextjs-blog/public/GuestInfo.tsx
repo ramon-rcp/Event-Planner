@@ -1,9 +1,14 @@
-import React, { ChangeEvent, Component, MouseEvent } from "react";
+import React, { Component, ChangeEvent, MouseEvent } from "react";
+import { Guest } from "./Guest";
+import { remove, save } from "./server";
 import { Show } from "./App";
-import { save } from "./server";
-import styles from "../styles/Home.module.css"
 
-type AgState = {
+type GiProps = {
+    guest: Guest
+    openGL: (page: Show) => void
+}
+
+type GiState = {
     name: string,
     allergies: string,
     kids: number,
@@ -18,26 +23,24 @@ type AgState = {
     }
 }
 
-type AgProps = {
-    openGL: (page: Show) => void
-}
-
-export class AddGuest extends Component<AgProps, AgState> {
-    constructor(props: AgProps){
+export class GuestInfo extends Component<GiProps, GiState> {
+    constructor(props: GiProps){
         super(props)
 
         this.state = {
-            name: "",
-            allergies: "",
-            kids: 0,
-            plusone: false
+            name: props.guest.name,
+            allergies: props.guest.allergies,
+            kids: props.guest.kids,
+            plusone: props.guest.plusone,
+            kidinfo: props.guest.kidinfo,
+            plusoneinfo: props.guest.plusoneinfo
         }
     }
 
     render = (): JSX.Element => {
         return <main>
             <h2>
-                Add Guest
+                Guest Information
             </h2>
             <p>
                 Name: 
@@ -60,7 +63,9 @@ export class AddGuest extends Component<AgProps, AgState> {
                 <input type="number" value={this.state.kids} onChange={this.updateKids}></input>
             </p>
             {this.renderKids()}
-            <button onClick={this.addGuest}>Add</button><button onClick={this.goBack}>Back</button>
+            <button onClick={this.addGuest}>Save</button>
+            <button onClick={this.goBack}>Back</button>
+            <button onClick={this.deleteGuest}>Delete</button>
         </main>
     }
 
@@ -93,6 +98,11 @@ export class AddGuest extends Component<AgProps, AgState> {
                 <textarea rows={4} cols={60} value={this.state.plusoneinfo?.allergies} onChange={this.updatePoAllergies}></textarea>
             </p>
         </div>
+    }
+
+    deleteGuest = (evt: MouseEvent<HTMLButtonElement>): void => {
+        remove(this.props.guest.name)
+        this.props.openGL("guestlist")
     }
 
     goBack = (evt: MouseEvent<HTMLButtonElement>): void => {
