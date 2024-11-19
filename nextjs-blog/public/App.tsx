@@ -4,6 +4,7 @@ import { Home } from "./Home"
 import { GuestList } from "./GuestList"
 import { Guest } from "./Guest"
 import { GuestInfo } from "./GuestInfo"
+import styles from '../styles/Home.module.css';
 
 export type Show = "home" | "guestlist" | "addguest" | {kind: "guestinfo", guest: Guest}
 
@@ -33,18 +34,24 @@ export class App extends Component<{}, State> {
             page = <GuestInfo guest={this.state.showing.guest} openGL={this.openPage}/>
         }
 
-        return <div>
-            <header>
-
-            </header>
-
-            {page}
-
-            <footer>
-
-            </footer>
-        </div>
-    }
+        return (
+            <div>
+              <main className={styles.header}>
+                <h1>HOME</h1>
+                <nav className={styles.nav}>
+                  <p>
+                    <a onClick={() => this.openPage("guestlist")}>GUEST LIST</a>
+                  </p>
+                  <p>
+                    <a onClick={() => this.openPage("addguest")}>ADD GUEST </a>
+                  </p>
+                </nav>
+              </main>
+        
+              {page}
+            </div>
+          );
+        };
 
     openPage = (page: Show): void => {
         this.setState({showing: page})

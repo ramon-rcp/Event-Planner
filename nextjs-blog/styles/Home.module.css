@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: aliceblue;
 }
 
 .title a {
@@ -90,3 +91,42 @@
     flex-direction: column;
   }
 }
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Align items to the sides */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa; /* Light background color */
+  border-bottom: 1px solid #ddd; /* Optional border at the bottom */
+}
+
+.header h1 {
+  font-family: Helvetica;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000; /* Adjust color as needed */
+}
+
+.nav {
+  font-family: Helvetica;
+  display: flex;
+  gap: 15px; /* Spacing between buttons/links */
+}
+
+.nav a {
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  border: 1px solid transparent; /* For hover effect */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.nav a:hover {
+  background-color: #e0e0e0; /* Hover background */
+  border-color: #bbb;
+}
+
