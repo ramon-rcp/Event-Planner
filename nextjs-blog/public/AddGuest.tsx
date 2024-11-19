@@ -3,10 +3,12 @@ import { Show } from "./App";
 import { save } from "./server";
 import styles from "../styles/Home.module.css"
 
+const KID_LIMIT: number = 20
+
 type AgState = {
     name: string,
     allergies: string,
-    kids: number,
+    kids: string,
     plusone: boolean,
     kidinfo?: {
         names: string[]
@@ -16,6 +18,12 @@ type AgState = {
         name: string
         allergies: string
     }
+    errormsg: "" |
+        "Can't have negative kids" |
+        "Please stop having kids" |
+        "Name can't be blank" |
+        "Plus one's name can't be blank" |
+        "None of the kid's names can be blank"
 }
 
 type AgProps = {
@@ -29,12 +37,14 @@ export class AddGuest extends Component<AgProps, AgState> {
         this.state = {
             name: "",
             allergies: "",
-            kids: 0,
-            plusone: false
+            kids: "",
+            plusone: false,
+            errormsg: ""
         }
     }
 
     render = (): JSX.Element => {
+        console.log(this.state.kidinfo?.names)
         return <main>
             <h2>
                 Add Guest
@@ -61,12 +71,13 @@ export class AddGuest extends Component<AgProps, AgState> {
             </p>
             {this.renderKids()}
             <button onClick={this.addGuest}>Add</button><button onClick={this.goBack}>Back</button>
+            <p>{this.state.errormsg}</p>
         </main>
     }
 
     renderKids = (): JSX.Element => {
         const html: JSX.Element[] = []
-        for(let i:number = 0; i<this.state.kids; i++){
+        for(let i:number = 0; i<Number(this.state.kids); i++){
             html.push(<div><p>
                 Kid {i+1} Name:
                 <input type="text" name={i.toString()} onChange={this.updateKidName} value={this.state.kidinfo?.names[i]}></input>
@@ -100,9 +111,25 @@ export class AddGuest extends Component<AgProps, AgState> {
     }
 
     addGuest = (evt: MouseEvent<HTMLButtonElement>): void => {
+        if(this.state.name === ""){
+            this.setState({errormsg: "Name can't be blank"})
+            return;
+        }
+        if(this.state.plusoneinfo?.name === ""){
+            this.setState({errormsg: "Plus one's name can't be blank"})
+            return;
+        }
+        if(this.state.kidinfo?.names.includes("")){
+            this.setState({errormsg: "None of the kid's names can be blank"})
+            return;
+        }
+        if(Number(this.state.kids) < 0){
+            this.setState({errormsg: "Can't have negative kids"})
+            return;
+        }
         save({
             name: this.state.name, 
-            kids: this.state.kids, 
+            kids: Number(this.state.kids), 
             allergies: this.state.allergies,
             plusone: this.state.plusone,
             plusoneinfo: this.state.plusoneinfo,
@@ -122,8 +149,9 @@ export class AddGuest extends Component<AgProps, AgState> {
     }
 
     updateKidName = (evt: ChangeEvent<HTMLInputElement>): void => {
-        let newNames: string[] | undefined = this.state.kidinfo?.allergies.slice(0)
+        let newNames: string[] | undefined = this.state.kidinfo?.names.slice(0)
         if(newNames === undefined) throw new Error("y is kidinfo undefined");
+        console.log(`newNames: ${newNames}`)
         newNames[Number(evt.target.name)] = evt.target.value 
         this.setState({kidinfo: {
             names: newNames,
@@ -147,8 +175,13 @@ export class AddGuest extends Component<AgProps, AgState> {
 
     updateKids = (evt: ChangeEvent<HTMLInputElement>): void => {
         const n: number = Number(evt.target.value);
+        if(n > KID_LIMIT){
+            this.setState({errormsg: "Please stop having kids"})
+            return;
+        }
         this.setState({
-            kids: n,
+            errormsg: "",
+            kids: evt.target.value,
             kidinfo: (n <= 0) ? undefined : {names: new Array(n).fill(''), allergies: new Array(n).fill('')}
         })
     }
