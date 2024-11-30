@@ -1,34 +1,21 @@
-import React, { Component, MouseEvent } from "react";
-import { Show } from "./App";
+import React from "react";
 import styles from '../styles/Home.module.css';
 
-type HomeProps = {
-    openPage: (page: Show) => void
-}
+type Props = {
+  openPage: (page: string) => void;
+};
 
-
-export class Home extends Component<HomeProps, {}> {
-    constructor(props: HomeProps){
-        super(props)
-    }
-
-    render = (): JSX.Element => {
-        return (
-            <main>
-            <h2>
-                HOME
-            </h2>
-            <p><a onClick={this.openGL}>GuestList</a></p>
-            <p><a onClick={this.openAG}>AddGuest</a></p>
-        </main>
-        );
-    }
-
-    openAG = (evt: MouseEvent<HTMLElement>): void => {
-        this.props.openPage("addguest")
-    }
-
-    openGL = (evt: MouseEvent<HTMLElement>): void => {
-        this.props.openPage("guestlist")
-    }
-}
+export const Home: React.FC<Props> = ({ openPage }) => {
+  return (
+    <div className={styles.container}>
+      <h3 className={styles.heading}>Welcome to the Event Planner!</h3>
+      <p className={styles.description}>
+        Organize, manage, and enjoy stress-free event planning with just a few clicks.
+      </p>
+      <div className={styles.navigation}>
+        <p className={styles.navLink} onClick={() => openPage("guestlist")}>GuestList</p>
+        <p className={styles.navLink} onClick={() => openPage("addguest")}>AddGuest</p>
+      </div>
+    </div>
+  );
+};
