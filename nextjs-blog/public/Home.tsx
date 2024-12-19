@@ -13,7 +13,7 @@ export const Home: React.FC<Props> = ({ openPage }) => {
         <p className={styles.wordContent}>
             Organize, manage, and enjoy stress-free event planning with just a few clicks
       </p>
-        <div>
+        <div className={styles.buttonContainer}>
             <button onClick={() => openPage("guestlist")}>Guest list</button>
             <button onClick={() => openPage("addguest")}>Add guest</button>
         </div>

@@ -58,3 +58,9 @@
     font-family: "Inter", sans-serif;
 }
 
+.buttonContainer {
+    margin-top: 20px; /* Adjust as needed */
+    display: flex;
+    gap: 10px;
+}
+
