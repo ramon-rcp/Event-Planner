@@ -14,8 +14,8 @@ export const Home: React.FC<Props> = ({ openPage }) => {
             Organize, manage, and enjoy stress-free event planning with just a few clicks
       </p>
         <div className={styles.buttonContainer}>
-            <button onClick={() => openPage("guestlist")}>Guest list</button>
-            <button onClick={() => openPage("addguest")}>Add guest</button>
+            <button className={styles.buttonClick} onClick={() => openPage("guestlist")}>Guest list</button>
+            <button className={styles.buttonClick} onClick={() => openPage("addguest")}>Add guest</button>
         </div>
     </div>
   );
