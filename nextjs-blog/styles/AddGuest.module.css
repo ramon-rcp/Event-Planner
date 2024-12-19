@@ -1,0 +1,28 @@
+.main {
+    font-family: "Inter", sans-serif;
+    background-color: #f9f9f9; /* not sure how I feel about the color diff vs white background */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.titleStyle {
+    font-family: "Inter", sans-serif;
+    color: #050505;
+    text-align: center; /* making it center so it's easy to catch user's attention? we can change later */
+    margin-bottom: 20px;
+}
+
+.buttonContainer {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
