@@ -3,7 +3,7 @@
 
 /* Header Styles */
 .mainHeader {
-  background: #fff;
+  background: #ffffff;
   border-bottom: 1px solid #eaeaea;
   padding: 20px 40px;
 }
@@ -32,7 +32,7 @@
   font-family: "Inter", sans-serif; /* Consistent sans-serif font for navigation */
   font-size: 1rem;
   font-weight: 500;
-  color: #c08879;
+  color: #100f0f;
   text-decoration: none;
   padding-bottom: 5px;
   border-bottom: 2px solid transparent;
@@ -40,8 +40,8 @@
 }
 
 .nav a:hover {
-  color: #c08879;
-  border-bottom: 2px solid #c08879;
+  color: #100f0f;
+  border-bottom: 2px solid #100f0f;
 }
 
 /* Responsive Design */
